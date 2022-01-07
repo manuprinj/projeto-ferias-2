@@ -13,6 +13,8 @@ import java.util.List;
 
 import javax.print.Doc;
 
+import br.com.techdive.ferias.projeto2.manuprinj.assuntos.TiposAssuntos;
+
 
 public class Main {
 
@@ -58,7 +60,14 @@ public class Main {
 
         LocalDate dataInicio = getData("Digite a data de início das aulas (dd/MM/yyyy): ");
 
-        Turma turma = new Turma(identificacaoTurma, nomeTurma, quantidadeAlunos, dataInicio);
+        System.out.println("Selecione o assunto:");
+        for (TiposAssuntos value : TiposAssuntos.values()) {
+            System.out.println(value.ordinal()+1 + " - " + value.getNome());
+        }
+        int opcaoAssunto = getInt()-1;
+        TiposAssuntos assunto = TiposAssuntos.values()[opcaoAssunto];
+
+        Turma turma = new Turma(identificacaoTurma, nomeTurma, quantidadeAlunos, dataInicio, assunto);
         turmas.add(turma);
     }
 

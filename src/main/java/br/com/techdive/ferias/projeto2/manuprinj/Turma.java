@@ -4,6 +4,7 @@ package br.com.techdive.ferias.projeto2.manuprinj;
 import java.time.LocalDate;
 import java.util.StringJoiner;
 
+import br.com.techdive.ferias.projeto2.manuprinj.assuntos.TiposAssuntos;
 import br.com.techdive.ferias.projeto2.manuprinj.utils.DataUtils;
 
 
@@ -13,12 +14,15 @@ public class Turma {
     private String nomeTurma;
     private int quantidadeAlunos;
     LocalDate dataInicio;
+    TiposAssuntos assunto;
 
-    public Turma(int identificacoTurma, String nomeTurma, int quantidadeAlunos, LocalDate dataInicio) {
+    public Turma(int identificacoTurma, String nomeTurma, int quantidadeAlunos, LocalDate dataInicio,
+            TiposAssuntos assunto) {
         this.identificacoTurma = identificacoTurma;
         this.nomeTurma = nomeTurma;
         this.quantidadeAlunos = quantidadeAlunos;
         this.dataInicio = dataInicio;
+        this.assunto = assunto;
     }
 
     @Override
@@ -27,7 +31,8 @@ public class Turma {
                 .add("Identificação: " + getIdentificacoTurma())
                 .add("Nome: " + getNomeTurma())
                 .add("Quantidade de Alunos: " + getQuantidadeAlunos())
-                .add("Data de Início: " + DataUtils.format(getDataInicio()));
+                .add("Data de Início: " + DataUtils.format(getDataInicio()))
+                .add("Assunto: " + assunto);
 
         return joiner.toString();
     }
