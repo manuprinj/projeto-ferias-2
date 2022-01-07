@@ -24,29 +24,26 @@ public class Main {
     static int identificacaoDocente = 0;
 
     public static void menu() {
-        int tipoOperacao = 0;
-        while (tipoOperacao != 7) {
+        while (true) {
             System.out.println("Seja bem-vindo ao Sistema Gerencial TechDive");
             System.out.println("1 - Cadastrar Turma");
-            System.out.println("2 - Cadastrar Docentes");
+            System.out.println("2 - Cadastrar Docente");
             System.out.println("3 - Alocar Docente");
-            System.out.println("4 - Listar Turmas");
-            System.out.println("5 - Listar Docentes");
+            System.out.println("4 - Listar Turmas Com Assuntos, Docentes e Semanas");
+            System.out.println("5 - Listar Todos os Docentes");
             System.out.println("6 - Listar Docente Específico");
             System.out.println("7 - Sair");
-            tipoOperacao = getInt();
+            int tipoOperacao = getInt();
 
-            if (tipoOperacao < 1 || tipoOperacao > 7) {
-                System.out.println("Digite uma opção válida!!");
-                menu();
-            }
             if (tipoOperacao == 1) cadastrarTurma();
-            if (tipoOperacao == 2) cadastrarDocente();
-            if (tipoOperacao == 3) cadastrarDocenteParaTurma();
-            if (tipoOperacao == 4) Listas.listarTodasTurmarComInformacoesCompletas();
-            if (tipoOperacao == 5) Listas.listarTodosDocentes();
-            if (tipoOperacao == 6) ;
-            if (tipoOperacao == 7) ;
+            else if (tipoOperacao == 2) cadastrarDocente();
+            else if (tipoOperacao == 3) cadastrarDocenteParaTurma();
+            else if (tipoOperacao == 4) Listas.listarTodasTurmarComInformacoesCompletas();
+            else if (tipoOperacao == 5) Listas.listarTodosDocentes();
+            else if (tipoOperacao == 6) listarDocenteComSemanas();
+            else if (tipoOperacao == 7) return;
+            else System.out.println("Digite uma opção válida!!");
+
         }
     }
 
@@ -150,6 +147,16 @@ public class Main {
             }
         }
     }
+
+    public static void listarDocenteComSemanas() {
+        Docente docente = validacaoDocente();
+        if (docente == null) {
+            System.out.println("Docente não encontrado!");
+            return;
+        }
+        Listas.listarDocenteEspecifico(docente);
+    }
+
 
     public static void main(String[] args) {
         menu();

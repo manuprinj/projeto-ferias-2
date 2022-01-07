@@ -16,6 +16,7 @@ public class Turma {
     private String nomeTurma;
     private int quantidadeAlunos;
     private LocalDate dataInicio;
+    private LocalDate dataFim;
     private TiposAssuntos assunto;
     private List<Docente> docentes = new ArrayList<>();
 
@@ -25,6 +26,7 @@ public class Turma {
         this.nomeTurma = nomeTurma;
         this.quantidadeAlunos = quantidadeAlunos;
         this.dataInicio = dataInicio;
+        this.dataFim = dataInicio.plusYears(1);
         this.assunto = assunto;
     }
 
@@ -35,6 +37,7 @@ public class Turma {
                 .add("Nome: " + getNomeTurma())
                 .add("Quantidade de Alunos: " + getQuantidadeAlunos())
                 .add("Data de Início: " + DataUtils.format(getDataInicio()))
+                .add("Data de Término: " + DataUtils.format(getDataFim()))
                 .add("Assunto: " + getAssunto());
 
         return joiner.toString();
@@ -70,6 +73,14 @@ public class Turma {
 
     public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
+    }
+
+    public LocalDate getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
     }
 
     public TiposAssuntos getAssunto() {
