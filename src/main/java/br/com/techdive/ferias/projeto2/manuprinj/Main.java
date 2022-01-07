@@ -43,7 +43,7 @@ public class Main {
             if (tipoOperacao == 1) cadastrarTurma();
             if (tipoOperacao == 2) cadastrarDocente();
             if (tipoOperacao == 3) cadastrarDocenteParaTurma();
-            if (tipoOperacao == 4) Listas.listarTodasTurmas();
+            if (tipoOperacao == 4) Listas.listarTodasTurmarComInformacoesCompletas();
             if (tipoOperacao == 5) Listas.listarTodosDocentes();
             if (tipoOperacao == 6) ;
             if (tipoOperacao == 7) ;
@@ -102,8 +102,13 @@ public class Main {
             Turma turma = validacaoTurma();
             if (turma == null) cadastrarDocente();
             else {
+                if (turma.getDocentes().size() >= 2) {
+                    System.out.println("Esta turma já tem o número máximo de docentes.");
+                    return;
+                }
                 Docente docente = new Docente(identificacaoDocente, nomeDocente, identificacaoTurma);
                 docentes.add(docente);
+                turma.getDocentes().add(docente);
             }
         } else {
             Docente docente = new Docente(identificacaoDocente, nomeDocente);
@@ -125,16 +130,23 @@ public class Main {
     public static void cadastrarDocenteParaTurma() {
 
         Turma turma = validacaoTurma();
-        if (turma == null) cadastrarDocenteParaTurma();
-        else {
-            Docente docente = validacaoDocente();
-            if (docente == null) cadastrarDocenteParaTurma();
-            else {
-                for (Docente docente1 : docentes) {
-                    if (docente1.getIdentificacaoDocente() == identificacaoDocente) {
-                        docente1.setCodigoTurma(identificacaoTurma);
-                    }
-                }
+        if (turma == null) {
+            cadastrarDocenteParaTurma();
+            return;
+        }
+        if (turma.getDocentes().size() >= 2) {
+            System.out.println("Esta turma já tem o número máximo de docentes.");
+            return;
+        }
+        Docente docente = validacaoDocente();
+        if (docente == null) {
+            cadastrarDocenteParaTurma();
+            return;
+        }
+        for (Docente docente1 : docentes) {
+            if (docente1.getIdentificacaoDocente() == identificacaoDocente) {
+                turma.getDocentes().add(docente);
+                docente1.setCodigoTurma(identificacaoTurma);
             }
         }
     }

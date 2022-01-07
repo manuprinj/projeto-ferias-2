@@ -2,6 +2,8 @@ package br.com.techdive.ferias.projeto2.manuprinj;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 import br.com.techdive.ferias.projeto2.manuprinj.assuntos.TiposAssuntos;
@@ -13,8 +15,9 @@ public class Turma {
     private int identificacoTurma;
     private String nomeTurma;
     private int quantidadeAlunos;
-    LocalDate dataInicio;
-    TiposAssuntos assunto;
+    private LocalDate dataInicio;
+    private TiposAssuntos assunto;
+    private List<Docente> docentes = new ArrayList<>();
 
     public Turma(int identificacoTurma, String nomeTurma, int quantidadeAlunos, LocalDate dataInicio,
             TiposAssuntos assunto) {
@@ -32,7 +35,7 @@ public class Turma {
                 .add("Nome: " + getNomeTurma())
                 .add("Quantidade de Alunos: " + getQuantidadeAlunos())
                 .add("Data de Início: " + DataUtils.format(getDataInicio()))
-                .add("Assunto: " + assunto);
+                .add("Assunto: " + getAssunto());
 
         return joiner.toString();
     }
@@ -67,5 +70,21 @@ public class Turma {
 
     public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
+    }
+
+    public TiposAssuntos getAssunto() {
+        return assunto;
+    }
+
+    public void setAssunto(TiposAssuntos assunto) {
+        this.assunto = assunto;
+    }
+
+    public List<Docente> getDocentes() {
+        return docentes;
+    }
+
+    public void setDocentes(List<Docente> docentes) {
+        this.docentes = docentes;
     }
 }
