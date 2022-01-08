@@ -11,8 +11,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.print.Doc;
-
 import br.com.techdive.ferias.projeto2.manuprinj.assuntos.TiposAssuntos;
 
 
@@ -57,11 +55,11 @@ public class Main {
 
         LocalDate dataInicio = getData("Digite a data de início das aulas (dd/MM/yyyy): ");
 
-        System.out.println("Selecione o assunto:");
+        System.out.println("Selecione o assunto da turma:");
         for (TiposAssuntos value : TiposAssuntos.values()) {
-            System.out.println(value.ordinal()+1 + " - " + value.getNome());
+            System.out.println(value.ordinal() + 1 + " - " + value.getNome());
         }
-        int opcaoAssunto = getInt()-1;
+        int opcaoAssunto = getInt() - 1;
         TiposAssuntos assunto = TiposAssuntos.values()[opcaoAssunto];
 
         Turma turma = new Turma(identificacaoTurma, nomeTurma, quantidadeAlunos, dataInicio, assunto);
@@ -69,18 +67,18 @@ public class Main {
     }
 
     public static Turma validacaoTurma() {
-        identificacaoTurma = getIdentificacao("Digite o número de identificação da turma: ");
+        while (true) {
+            identificacaoTurma = getIdentificacao("Digite o número de identificação da turma: ");
 
-        for (Turma turma : turmas) {
-            if (turma.getIdentificacoTurma() == identificacaoTurma) return turma;
+            for (Turma turma : turmas) {
+                if (turma.getIdentificacoTurma() == identificacaoTurma) return turma;
+            }
+
+            System.out.println("Turma não encontrada!");
         }
-
-        System.out.println("Turma não encontrado!");
-        return null;
     }
 
     public static void cadastrarDocente() {
-        int tipoOperacao = 0;
 
         int identificacaoDocente = getIdentificacao("Digite o número de identificação do docente: ");
 
@@ -89,57 +87,44 @@ public class Main {
         System.out.println("O docente está atendendo alguma turma atualmente?");
         System.out.println("1 - Sim");
         System.out.println("2 - Não");
-        tipoOperacao = getInt();
+        int tipoOperacao = getInt();
 
-        if (tipoOperacao < 1 || tipoOperacao > 2) {
-            System.out.println("Digite uma opção válida!!");
-            menu();
-        }
         if (tipoOperacao == 1) {
             Turma turma = validacaoTurma();
-            if (turma == null) cadastrarDocente();
-            else {
-                if (turma.getDocentes().size() >= 2) {
-                    System.out.println("Esta turma já tem o número máximo de docentes.");
-                    return;
-                }
-                Docente docente = new Docente(identificacaoDocente, nomeDocente, identificacaoTurma);
-                docentes.add(docente);
-                turma.getDocentes().add(docente);
+            if (turma.getDocentes().size() >= 2) {
+                System.out.println("Esta turma já tem o número máximo de docentes.");
+                return;
             }
-        } else {
+            Docente docente = new Docente(identificacaoDocente, nomeDocente, identificacaoTurma);
+            docentes.add(docente);
+            turma.getDocentes().add(docente);
+        } else if (tipoOperacao == 2) {
             Docente docente = new Docente(identificacaoDocente, nomeDocente);
             docentes.add(docente);
-        }
+        } else System.out.println("Digite uma opção válida!!");
+
     }
 
     public static Docente validacaoDocente() {
-        identificacaoDocente = getIdentificacao("Digite o número de identificação do docente: ");
+        while (true) {
+            identificacaoDocente = getIdentificacao("Digite o número de identificação do docente: ");
 
-        for (Docente docente : docentes) {
-            if (docente.getIdentificacaoDocente() == identificacaoDocente) return docente;
+            for (Docente docente : docentes) {
+                if (docente.getIdentificacaoDocente() == identificacaoDocente) return docente;
+            }
+
+            System.out.println("Docente não encontrado!");
         }
-
-        System.out.println("Docente não encontrado!");
-        return null;
     }
 
     public static void cadastrarDocenteParaTurma() {
 
         Turma turma = validacaoTurma();
-        if (turma == null) {
-            cadastrarDocenteParaTurma();
-            return;
-        }
         if (turma.getDocentes().size() >= 2) {
             System.out.println("Esta turma já tem o número máximo de docentes.");
             return;
         }
         Docente docente = validacaoDocente();
-        if (docente == null) {
-            cadastrarDocenteParaTurma();
-            return;
-        }
         for (Docente docente1 : docentes) {
             if (docente1.getIdentificacaoDocente() == identificacaoDocente) {
                 turma.getDocentes().add(docente);
@@ -150,13 +135,8 @@ public class Main {
 
     public static void listarDocenteComSemanas() {
         Docente docente = validacaoDocente();
-        if (docente == null) {
-            System.out.println("Docente não encontrado!");
-            return;
-        }
         Listas.listarDocenteEspecifico(docente);
     }
-
 
     public static void main(String[] args) {
         menu();

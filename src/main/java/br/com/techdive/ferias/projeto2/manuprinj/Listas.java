@@ -13,7 +13,7 @@ public class Listas {
         for (Turma turma : Main.turmas) {
             System.out.println("Turma: ");
             System.out.println(turma);
-            System.out.println("Docentes: ");
+            System.out.println("Docente(s): ");
             for (int i = 0; i < turma.getDocentes().size(); i++) {
                 System.out.print(imprimirDiaDaSemana(turma, i) + " - ");
                 System.out.println(turma.getDocentes().get(i));

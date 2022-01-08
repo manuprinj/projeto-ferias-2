@@ -25,9 +25,8 @@ public class Docente {
     public String toString () {
         StringJoiner joiner = new StringJoiner(" | ")
                 .add("Identificação Docente: " + getIdentificacaoDocente())
-                .add("Nome: " + getNomeDocente())
-                .add("Identificação Turma: " + getCodigoTurma());
-
+                .add("Nome: " + getNomeDocente());
+        if (getCodigoTurma() != 0) joiner.add("Identificação Turma: " + getCodigoTurma());
         return joiner.toString();
     }
 
