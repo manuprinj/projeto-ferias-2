@@ -48,6 +48,12 @@ public class Main {
     public static void cadastrarTurma() {
 
         int identificacaoTurma = getIdentificacao("Digite o número de identificação da turma: ");
+        for (Turma turma : turmas) {
+            if (turma.getIdentificacoTurma() == identificacaoTurma) {
+                System.out.println("Este número de identificação de turma já existe!");
+                return;
+            }
+        }
 
         String nomeTurma = getString("Digite o nome da turma: ");
 
@@ -81,13 +87,22 @@ public class Main {
     public static void cadastrarDocente() {
 
         int identificacaoDocente = getIdentificacao("Digite o número de identificação do docente: ");
+        for (Docente docente : docentes) {
+            if (docente.getIdentificacaoDocente() == identificacaoDocente) {
+                System.out.println("Este número de identificação de docente já existe!");
+                return;
+            }
+        }
 
         String nomeDocente = getString("Digite o nome do docente: ");
 
-        System.out.println("O docente está atendendo alguma turma atualmente?");
-        System.out.println("1 - Sim");
-        System.out.println("2 - Não");
-        int tipoOperacao = getInt();
+        int tipoOperacao = 2;
+        if (!turmas.isEmpty()) {
+            System.out.println("O docente está atendendo alguma turma atualmente?");
+            System.out.println("1 - Sim");
+            System.out.println("2 - Não");
+            tipoOperacao = getInt();
+        }
 
         if (tipoOperacao == 1) {
             Turma turma = validacaoTurma();
