@@ -1,4 +1,4 @@
-# projeto-ferias-2
+# Projeto de Férias 2
 
 Uma determinada escola deseja realizar o controle dos seus professores, para isso, contratou você para desenvolver um programa em JAVA. Atualmente, os conteúdos são divididos por semanas onde um ou dois professores podem ministrar as aulas e cada turma tem duração de 12 meses (52 semanas). Sempre que dois professores dividirem os conteúdos da semana, um professor ficará com as segundas e terças e o outro com as quartas, quintas e sextas. Para isso, desenvolva um algoritmo que faça a gestão das turmas e dos professores.
 
